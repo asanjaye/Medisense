@@ -78,6 +78,10 @@ df = pd.DataFrame(rows, columns=[
     'Blood Pressure', 'Cholesterol Level', 'Outcome Variable'
 ])
 
+# changing all to numeric values
+    df['Outcome Variable'] = df['Outcome Variable'].replace({'Positive':1,'Negative':0})
+    df['Gender'] = df['Gender'].replace({'Male':1,'Female':0})
+
 # Convert each row of the DataFrame into an array and store in a list
 rows_as_arrays = df.values.tolist()
 
