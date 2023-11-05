@@ -22,10 +22,16 @@ def convert_xml_to_json(xml_data=None):
 def process_input():
     uploaded_file=request.files['file']
     custom_string = request.form['disease']
+
+    filename = uploaded_file.filename
     file_data = uploaded_file.read()
+
+    if('xml' in filename):
+        convert_xml_to_json(file_data)
+        
     return jsonify({'message': 'File received and processed!', 'data': file_data, 'custom_string': custom_string})
 
-
+# @app.route('')
 
 # Read the XML file
 with open('data.xml', 'r') as file:  # Replace 'data.xml' with the path to XML file
@@ -79,8 +85,8 @@ df = pd.DataFrame(rows, columns=[
 ])
 
 # changing all to numeric values
-    df['Outcome Variable'] = df['Outcome Variable'].replace({'Positive':1,'Negative':0})
-    df['Gender'] = df['Gender'].replace({'Male':1,'Female':0})
+df['Outcome Variable'] = df['Outcome Variable'].replace({'Positive':1,'Negative':0})
+df['Gender'] = df['Gender'].replace({'Male':1,'Female':0})
 
 # Convert each row of the DataFrame into an array and store in a list
 rows_as_arrays = df.values.tolist()
