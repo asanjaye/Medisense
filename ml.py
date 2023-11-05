@@ -67,6 +67,8 @@ def load():
     y_pred_train = rf.predict(xtrain)
     y_pred_test = rf.predict(xtest)
 
+
+    return rf
     # print(y_pred_train)
     # print("The TRAIN accuracy is ",accuracy_score(y_pred_train, y_pred_test))
 
@@ -80,17 +82,17 @@ def load():
     # print("The ROC score for TEST data is",roc_auc_score(ytest,y_pred_test))
 
 
-def get_risk_level(user_data):
+def get_risk_level(model, user_data):
     # Filter the dataframe to include only rows with the specified disease
     # disease_df = df[df['Disease'] == disease]
-    rf = RandomForestClassifier()
+    # rf = RandomForestClassifier()
     # Prepare input data for prediction
     # input_data = disease_df.drop(['Disease'], axis=1)
     for column, le in label_encoders.items():
         user_data[column] = le.transform(user_data[column])
     
     # Make predictions using the trained model
-    predictions = rf.predict_proba(user_data)
+    predictions = model.predict_proba(user_data)
     
     # Assuming 'Positive' class is index 1 in the classes array
     risk_factor = predictions[:, 1].mean()

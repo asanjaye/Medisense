@@ -91,6 +91,8 @@ def process_input():
 @app.route('/calculaterisk')
 def calculate_risk():
     print("holder")
+    model = load()
+    return get_risk_level(model, rows_as_arrays)
     # rows_as_arrays
     
 # @app.route('')
