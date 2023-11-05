@@ -80,6 +80,11 @@ def process_input():
 
     return jsonify({'message': 'File received and processed!', 'data': file_data, 'custom_string': custom_string})
 
+
+
+@app.route('/calculaterisk')
+def calculate_risk():
+    print("filler")
 # @app.route('')
 
 # # Read the XML file
@@ -91,3 +96,5 @@ def process_input():
 # json_data = convert_xml_to_json(xml_data=xml_data)
 
 
+if __name__ == '__main__':
+    app.run(debug=True)
