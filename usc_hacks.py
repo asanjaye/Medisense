@@ -1,5 +1,10 @@
+from flask import Flask, jsonify, request,render_template
+
 import pandas as pd
 import requests
+
+
+app = Flask(__name__)
 
 # Function to convert XML to JSON
 def convert_xml_to_json(xml_data=None):
@@ -13,11 +18,21 @@ def convert_xml_to_json(xml_data=None):
     else:
         response.raise_for_status()
 
+@app.route('/process_input', methods=['POST'])
+def process_input():
+    uploaded_file=request.files['file']
+    custom_string = request.form['disease']
+    file_data = uploaded_file.read()
+    return jsonify({'message': 'File received and processed!', 'data': file_data, 'custom_string': custom_string})
+
+
+
 # Read the XML file
 with open('data.xml', 'r') as file:  # Replace 'data.xml' with the path to XML file
     xml_data = file.read()
 
 # Convert the XML data to JSON
+
 json_data = convert_xml_to_json(xml_data=xml_data)
 
 # Convert the JSON data to a DataFrame

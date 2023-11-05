@@ -17,12 +17,14 @@ plt.rcParams['figure.figsize']=[15,6]
 import warnings
 warnings.filterwarnings("ignore")
 
+
+
 patient_data = pd.DataFrame()
 chosen_disease = ""
+
 def __init__(self, patient_data, chosen_disease):
     self.patient_data= patient_data
     self.chosen_disease = chosen_disease
-# app = Flask(__name__)
 
 # Load the dataset
 df = pd.read_csv('Disease_symptom.csv')  
