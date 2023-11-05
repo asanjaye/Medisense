@@ -25,16 +25,16 @@ disease = ""
 @app.route('/process_input', methods=['POST'])
 def process_input():
     global disease
-    uploaded_file=request.form['file']
+    uploaded_file=request.get_json['file']
     disease = request.form['disease']
     
-    filename = uploaded_file.filename
-    file_data = uploaded_file.read()
+    # filename = uploaded_file.filename
+    # file_data = uploaded_file.read()
 
     # if('xml' in filename):
     #     file_data = convert_xml_to_json(file_data)
     # Convert the JSON data to a DataFrame
-    df = pd.json_normalize(file_data)
+    df = pd.json_normalize(uploaded_file)
 
     # Assuming entries are stored in a list under the 'entry' field in the JSON data
     entries = df['entry'][0]
