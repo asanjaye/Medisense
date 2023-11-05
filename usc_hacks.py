@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request,render_template
 
+from ml import load, get_risk_level
 import pandas as pd
 import requests
 # from ml import
@@ -10,28 +11,28 @@ app = Flask(__name__)
 rows_as_arrays = []
 disease = ""
 # Function to convert XML to JSON
-def convert_xml_to_json(xml_data=None):
-    api_url = 'https://api.factmaven.com/xml-to-json'  # Updated API endpoint
-    payload = {'xmlData': xml_data}
-    headers = {'Content-Type': 'application/x-www-form-urlencoded'}  # Added headers for form data
-    response = requests.post(api_url, data=payload, headers=headers)
+# def convert_xml_to_json(xml_data=None):
+#     api_url = 'https://api.factmaven.com/xml-to-json'  # Updated API endpoint
+#     payload = {'xmlData': xml_data}
+#     headers = {'Content-Type': 'application/x-www-form-urlencoded'}  # Added headers for form data
+#     response = requests.post(api_url, data=payload, headers=headers)
     
-    if response.status_code == 200:
-        return response.json()
-    else:
-        response.raise_for_status()
+#     if response.status_code == 200:
+#         return response.json()
+#     else:
+#         response.raise_for_status()
 
 @app.route('/process_input', methods=['POST'])
 def process_input():
     global disease
     uploaded_file=request.form['file']
     disease = request.form['disease']
-
+    
     filename = uploaded_file.filename
     file_data = uploaded_file.read()
 
-    if('xml' in filename):
-        file_data = convert_xml_to_json(file_data)
+    # if('xml' in filename):
+    #     file_data = convert_xml_to_json(file_data)
     # Convert the JSON data to a DataFrame
     df = pd.json_normalize(file_data)
 
@@ -89,8 +90,9 @@ def process_input():
 
 @app.route('/calculaterisk')
 def calculate_risk():
+    print("holder")
     # rows_as_arrays
-    patient = ml(rows_as_arrays, disease)
+    
 # @app.route('')
 
 # # Read the XML file
