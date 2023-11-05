@@ -2,10 +2,13 @@ from flask import Flask, jsonify, request,render_template
 
 import pandas as pd
 import requests
-
+# from ml import
 
 app = Flask(__name__)
 
+
+rows_as_arrays = []
+disease = ""
 # Function to convert XML to JSON
 def convert_xml_to_json(xml_data=None):
     api_url = 'https://api.factmaven.com/xml-to-json'  # Updated API endpoint
@@ -20,8 +23,9 @@ def convert_xml_to_json(xml_data=None):
 
 @app.route('/process_input', methods=['POST'])
 def process_input():
-    uploaded_file=request.files['file']
-    custom_string = request.form['disease']
+    global disease
+    uploaded_file=request.form['file']
+    disease = request.form['disease']
 
     filename = uploaded_file.filename
     file_data = uploaded_file.read()
@@ -76,15 +80,17 @@ def process_input():
     df['Gender'] = df['Gender'].replace({'Male':1,'Female':0})
 
     # Convert each row of the DataFrame into an array and store in a list
+    global rows_as_arrays
     rows_as_arrays = df.values.tolist()
-
+    print("dataframe: ",df)
     return jsonify({'message': 'File received and processed!', 'data': file_data, 'custom_string': custom_string})
 
 
 
 @app.route('/calculaterisk')
 def calculate_risk():
-    print("filler")
+    # rows_as_arrays
+    patient = ml(rows_as_arrays, disease)
 # @app.route('')
 
 # # Read the XML file
