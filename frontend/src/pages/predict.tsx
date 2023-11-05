@@ -1,5 +1,4 @@
-import Head from "next/head";
-import Link from "next/link";
+
 import { useRef, useState } from "react";
 import Combo from "~/components/Combobox";
 
@@ -7,7 +6,6 @@ import Combo from "~/components/Combobox";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const hello = api.post.hello.useQuery({ text: "from tRPC" });
 
   const [selectedPerson, setSelectedPerson] = useState<string>("");
 
@@ -22,7 +20,7 @@ export default function Home() {
   };
 
   const runAPI = () => {
-    
+    console.log(selectedPerson)
   };
 
   return (

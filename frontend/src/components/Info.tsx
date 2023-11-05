@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import graph from "~/images/graph.png";
 
 
@@ -12,7 +13,7 @@ export default function Info() {
             <div className="mt-10 grid max-w-xl grid-cols-1 gap-8 text-base leading-7 text-gray-700 lg:max-w-none lg:grid-cols-2">
               <div>
                 <p>
-                  Using a model we trained on pre existing medical data, a doctor can input a patient's FHIR file and a disease they are testing for,
+                  Using a model we trained on pre existing medical data, a doctor can input a patient&apos;s FHIR file and a disease they are testing for,
                   and our model will determine if the patient is at risk for the specificied disease.
                 </p>
                
@@ -25,12 +26,12 @@ export default function Info() {
               </div>
             </div>
             <div className="mt-10 flex">
-              <a
+              <Link
                 href="/predict"
                 className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Start predicting
-              </a>
+              </Link>
             </div>
           </div>
         </div>
