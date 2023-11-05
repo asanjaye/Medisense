@@ -16,7 +16,7 @@ plt.rcParams['figure.figsize']=[15,6]
 import warnings
 warnings.filterwarnings("ignore")
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 # Load the dataset
 def load_data():
