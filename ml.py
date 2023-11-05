@@ -19,41 +19,45 @@ warnings.filterwarnings("ignore")
 app = Flask(__name__)
 
 # Load the dataset
-df = pd.read_csv('Disease_symptom.csv')  
+def load_data():
+    df = pd.read_csv('Disease_symptom.csv')  
 
 
-df = df.dropna()
+    df = df.dropna()
 
 
-df.head()
+    df.head()
 
-for i in ['Fever', 'Cough', 'Fatigue', 'Difficulty Breathing']:
-    df[i] = df[i].replace({'Yes':1,'No':0})
-    
-for i in ['Blood Pressure', 'Cholesterol Level']:
-    df[i] = df[i].replace({'Low':1,'Normal':2,'High':3})
-    
-df.head()
-    
+    for i in ['Fever', 'Cough', 'Fatigue', 'Difficulty Breathing']:
+        df[i] = df[i].replace({'Yes':1,'No':0})
+        
+    for i in ['Blood Pressure', 'Cholesterol Level']:
+        df[i] = df[i].replace({'Low':1,'Normal':2,'High':3})
+        
+    df.head()
+        
 
-# changing all to numeric values 
-df['Outcome Variable'] = df['Outcome Variable'].replace({'Positive':1,'Negative':0})
-df['Gender'] = df['Gender'].replace({'Male':1,'Female':0})
+    # changing all to numeric values 
+    df['Outcome Variable'] = df['Outcome Variable'].replace({'Positive':1,'Negative':0})
+    df['Gender'] = df['Gender'].replace({'Male':1,'Female':0})
 
 
-# x and y varibles for trainig
-y = df['Outcome Variable']
-x = df[['Fever', 'Cough', 'Fatigue', 'Difficulty Breathing', 'Age','Gender', 'Blood Pressure', 'Cholesterol Level']]
+    # x and y varibles for trainig
+    y = df['Outcome Variable']
+    x = df[['Fever', 'Cough', 'Fatigue', 'Difficulty Breathing', 'Age','Gender', 'Blood Pressure', 'Cholesterol Level']]
 
-xtrain,xtest,ytrain,ytest = train_test_split(x,y,test_size=0.30,random_state=42)
+    xtrain,xtest,ytrain,ytest = train_test_split(x,y,test_size=0.30,random_state=42)
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-def predictor(model_name):
+def predictor(model_name, xtrain, ytrain):
     print("For the {}".format(model_name))
     model_name.fit(xtrain,ytrain)
     y_pred_train = model_name.predict(xtrain)
     y_pred_test = model_name.predict(xtest)
+
+
+
     print("The TRAIN accuracy is",accuracy_score(ytrain,y_pred_train))
     print("The ROC score for TRAIN data is",roc_auc_score(ytrain,y_pred_train))
 
