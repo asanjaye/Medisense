@@ -12,7 +12,7 @@
   }
   ```
 */
-import { Dispatch, SetStateAction, useState } from "react";
+import React, {  useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Combobox } from "@headlessui/react";
 
@@ -105,7 +105,7 @@ export default function Combo({
   setSelectedPerson,
 }: {
   selectedPerson: string;
-  setSelectedPerson: Dispatch<SetStateAction<string>>;
+  setSelectedPerson: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [query, setQuery] = useState("");
 
